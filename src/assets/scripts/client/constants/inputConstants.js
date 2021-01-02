@@ -134,3 +134,22 @@ export const MOUSE_EVENT_CODE = {
     MIDDLE_PRESS: 2,
     RIGHT_PRESS: 3
 };
+
+/**
+ * Name of a command returned from the Parser
+ *
+ * @property PARSED_COMMAND_NAME
+ * @type {Object}
+ * @final
+ */
+export const PARSED_COMMAND_NAME = {
+    AIRAC: 'airac',
+    AIRPORT: 'airport',
+    AUTO: 'auto',
+    CLEAR: 'clear',
+    PAUSE: 'pause',
+    RATE: 'rate',
+    TIMEWARP: 'timewarp',
+    TRANSMIT: 'transmit',
+    TUTORIAL: 'tutorial'
+};

@@ -26,10 +26,10 @@ const buildCommandList = (...args) => {
 };
 
 ava('throws when called with an invalid command', (t) => {
-    t.throws(() => new CommandParser(['threeve']));
-    t.throws(() => new CommandParser(false));
-    t.throws(() => new CommandParser(42));
-    t.throws(() => new CommandParser({}));
+    t.throws(() => CommandParser.parse('threeve'));
+    t.throws(() => CommandParser.parse(false));
+    t.throws(() => CommandParser.parse(42));
+    t.throws(() => CommandParser.parse({}));
 });
 
 ava('throws when called with invalid arguments', (t) => {

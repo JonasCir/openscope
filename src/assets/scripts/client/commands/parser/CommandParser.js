@@ -5,6 +5,7 @@ import {
     AIRCRAFT_COMMAND_MAP,
     aliasToRootCommand, SYSTEM_COMMAND_MAP
 } from '../CommandDefinition';
+import { ERROR_MESSAGE } from './ParserError';
 
 
 /**
@@ -115,6 +116,9 @@ export default class CommandParser {
         while (tail.length > 0) {
             const commandName = tail[0];
             const rootCmd = aliasToRootCommand(AIRCRAFT_COMMAND_MAP, commandName);
+            if (typeof rootCmd !== 'undefined') {
+                throw new Error(ERROR_MESSAGE.INVALID_CMD);
+            }
             const [parsedArgs, tmp] = AIRCRAFT_COMMAND_MAP[rootCmd].parse(tail);
             tail = tmp;
             const validatedArgs = AIRCRAFT_COMMAND_MAP[rootCmd].validate(parsedArgs);

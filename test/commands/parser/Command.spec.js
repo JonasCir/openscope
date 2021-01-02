@@ -4,7 +4,7 @@ import ava from 'ava';
 import Command from '../../../src/assets/scripts/client/commands/Command';
 
 
-ava('does not thow when instantiated without parameters', t => {
+ava('does not throw when instantiated without parameters', t => {
     t.notThrows(() => new Command());
 });
 

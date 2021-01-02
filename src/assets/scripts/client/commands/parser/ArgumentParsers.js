@@ -1,5 +1,5 @@
 import _defaultTo from 'lodash/defaultTo';
-import { isValidCourseString, isValidDirectionString } from './argumentValidators';
+import { isValidCourseString, isValidDirectionString } from './ArgumentValidators';
 import { REGEX } from '../../constants/globalConstants';
 import {
     convertToThousands,
@@ -214,7 +214,7 @@ export const timewarpParser = (args = []) => {
         return [defaultTimewarpValue];
     }
 
-    // calling method is expecting an array with values that will get spread later, thus we purposly
+    // calling method is expecting an array with values that will get spread later, thus we purposely
     // return an array here
     return [
         convertStringToNumber(args[0])
@@ -237,9 +237,11 @@ export const crossingParser = (args = []) => {
     // Set i to 1 to skip fixName
     for (let i = 1; i < args.length; i++) {
         if (args[i][0].toLowerCase() === 'a') {
-            altitude = convertToThousands(args[i].toString().substr(1));
+            altitude = convertToThousands(args[i].toString()
+                .substr(1));
         } else if (args[i][0].toLowerCase() === 's') {
-            speed = convertStringToNumber(args[i].toString().substr(1));
+            speed = convertStringToNumber(args[i].toString()
+                .substr(1));
         }
     }
 

@@ -29,7 +29,7 @@ const COMMAND_ARGS_SEPARATOR = ' ';
  * - `AA777 fh 0270 d 050 sp 200`
  * - `AA777 hold dumba left 2min`
  *
- * **Differentiation of commands and arguments is determinied by splitting the string on an empty space. This
+ * **Differentiation of commands and arguments is determined by splitting the string on an empty space. This
  * is very important, so legacy commands did not have spaces between the command and argument. With this
  * implementation _every_ command shall have a space between itself and it's arguments.**
  *
@@ -45,22 +45,22 @@ const COMMAND_ARGS_SEPARATOR = ' ';
  * - user types command and presses enter
  * - command string is captured via input value, then passed as an argument to this class
  * - determine if command string is a `System Command` or `Transmit`
- * - creation of `AircraftCommandModel` objects for each command/argment group found
+ * - creation of `AircraftCommandModel` objects for each command/argument group found
  * - validate command arguments (number of arguments and data type)
  * - parse command arguments
  *
  * All available commands are defined in the `commandMap`. Two terms of note are alias and root command.
- * We would call the `takeoff` command a root command and `to` and `cto` alises. The root command is the
+ * We would call the `takeoff` command a root command and `to` and `cto` aliases. The root command is the
  * one that shares the same key as the command definition which gives us the correct validator and parser.
  * The root command is also what the `AircraftModel` is expecting when it receives commands
  * from the `InputController`.
  *
- * @class CommandParser
+ * @class ParsedCommand
  */
-export default class CommandParser {
+export default class ParsedCommand {
     /**
      * @constructor
-     * @for CommandParser
+     * @for ParsedCommand
      * @param rawCommandWithArgs {string}  string present in the `$commandInput` when the user pressed `enter`
      */
     constructor(rawCommandWithArgs = '') {
@@ -132,7 +132,7 @@ export default class CommandParser {
      * - System command and its arguments
      * - Transmit commands and thier arguments
      *
-     * @for CommandParser
+     * @for ParsedCommand
      * @method _extractCommandsAndArgs
      * @param rawCommandWithArgs {string}
      * @private
@@ -156,7 +156,7 @@ export default class CommandParser {
     /**
      * Build a `AircraftCommandModel` for a System command then add that model to the `commandList`
      *
-     * @for CommandParser
+     * @for ParsedCommand
      * @method _buildSystemCommandModel
      * @private
      */
@@ -205,7 +205,7 @@ export default class CommandParser {
      *
      * this allows us to create several `AircraftCommandModel` with arguments and only loop over them once.
      *
-     * @for CommandParser
+     * @for ParsedCommand
      * @method _buildCommandList
      * @param commandArgSegments {array<string>}
      * @return {array<AircraftCommandModel>}
@@ -252,7 +252,7 @@ export default class CommandParser {
     /**
      * Fire off the `_validateCommandArguments` method and throws any errors returned
      *
-     * @for CommandParser
+     * @for ParsedCommand
      * @method _validateAndParseCommandArguments
      * @private
      */
@@ -270,7 +270,7 @@ export default class CommandParser {
      * For each `AircraftCommandModel` in the `commandList`, first validate it's arguments
      * then parse those arguments into a consumable array.
      *
-     * @for CommandParser
+     * @for ParsedCommand
      * @method _validateCommandArguments
      * @private
      */
@@ -299,7 +299,7 @@ export default class CommandParser {
      * is in fact a system command.
      *
      *
-     * @for CommandParser
+     * @for ParsedCommand
      * @method _isSystemCommand
      * @param callsignOrSystemCommandName {string}
      * @return {boolean}

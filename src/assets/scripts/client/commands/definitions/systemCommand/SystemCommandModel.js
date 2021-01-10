@@ -1,7 +1,7 @@
 /**
  * A definition of a specific command and it's arguments.
  *
- * Contains a command name, which maps 1:1 with a name defined in `commandMap.js` and `commandDefinitions.js`.
+ * Conatins a command name, which maps 1:1 with a name defined in `commandMap.js` and `commandDefinitions.js`.
  * Commands may have an alias or many, we care only about the root command. The command map will map any
  * alias to a root command and this `SystemCommandModel` is only concerned about those root commands. It has
  * no way of knowing what the original alias was, if one was used.

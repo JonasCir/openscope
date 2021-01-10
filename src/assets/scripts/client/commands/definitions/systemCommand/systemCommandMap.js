@@ -1,3 +1,11 @@
+/**
+ * This definition give us access to vaildate and parse functions. Some commands don't require either function and simply
+ * pass the arguments through via `noop`. Other commands commands have very unique demands for how
+ * arguments are formatted, these functions let us validate and parse on a case by case basis.
+ *
+ * @fileoverview
+ */
+
 import { singleArgumentValidator, zeroArgumentsValidator, zeroOrOneArgumentValidator } from '../../parsers/argumentValidators';
 import { convertStringToNumber } from '../../../utilities/unitConverters';
 import { timewarpParser } from '../../parsers/argumentParsers';
@@ -6,9 +14,7 @@ import noop from '../utils';
 /**
  * Complete map of system commands
  *
- * The values contains `parse` and `validate` functions for each root command. Some commands don't require either function
- * and simply pass the arguments through via `noop`. Other commands commands have very unique demands for how
- * arguments are formatted, these functions let us validate and parse on a case by case basis.
+ * Keys are lowercased here so they can be accessed programmatically.
  *
  * @propery SYSTEM_COMMAND_MAP
  * @type {Object}
@@ -56,6 +62,21 @@ export const SYSTEM_COMMAND_MAP = {
     tutorial: {
         validate: zeroArgumentsValidator,
         parse: noop
+    },
+
+    //todo
+    moveDataBlock: {
+        validate: singleArgumentValidator,
+        parse: noop
+    },
+
+    '`': {
+        // todo: weired
+        // calling method is expecting an array with values that will get spread later, thus we purposly
+        // return an array here
+        parse: (args) => [convertStringToNumber(args)],
+        validate: singleArgumentValidator
+
     }
 };
 

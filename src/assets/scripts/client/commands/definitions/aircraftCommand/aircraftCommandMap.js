@@ -1,3 +1,10 @@
+/**
+ * This definition give us access to vaildate and parse functions. Some commands don't require either function and simply
+ * pass the arguments through via `noop`. Other commands commands have very unique demands for how
+ * arguments are formatted, these functions let us validate and parse on a case by case basis.
+ *
+ * @fileoverview
+ */
 import _findKey from 'lodash/findKey';
 import {
     altitudeValidator,
@@ -13,13 +20,15 @@ import {
 import { noop } from '../utils';
 
 /**
+ * Complete map of commands
+ *
  * This list includes all the various aircraft commands.
  *
- * Aliased commands map to a single root command which is shared among all aliases. The values
- * contains `parse` and `validate` functions for each root command. Some commands don't require either function and simply
- * pass the arguments through via `noop`. Other commands commands have very unique demands for how
- * arguments are formatted, these functions let us validate and parse on a case by case basis.
+ * Aliased commands map to a single root command that is shared among all aliases. The values
+ * contains `validate` and `parse` functions for each root command. Some commands have very unique demands for how arguments
+ * are formatted,those functions let us do that on a case by case basis.
  *
+ * Keys are lowercased here so they can be accessed programmatically.
  * @propery AIRCRAFT_COMMAND_MAP
  * @type {Object}
  * @final
@@ -27,8 +36,8 @@ import { noop } from '../utils';
 export const AIRCRAFT_COMMAND_MAP = {
     abort: {
         aliases: ['abort'],
-        parse: noop,
         validate: zeroArgumentsValidator,
+        parse: noop,
         functionName: 'runAbort'
 
     },
@@ -36,19 +45,21 @@ export const AIRCRAFT_COMMAND_MAP = {
         aliases: ['a', 'altitude', 'c', 'climb', 'd', 'descend'],
         parse: altitudeParser,
         validate: altitudeValidator,
+
         functionName: 'runAltitude'
 
     },
     clearedAsFiled: {
         aliases: ['caf', 'clearedAsFiled'],
-        parse: noop,
         validate: zeroArgumentsValidator,
+        parse: noop,
         functionName: 'runClearedAsFiled'
     },
     climbViaSid: {
         aliases: ['climbViaSid', 'cvs'],
         parse: optionalAltitudeParser,
         validate: optionalAltitudeValidator,
+
         functionName: 'runClimbViaSID'
     },
     cross: {
@@ -59,8 +70,8 @@ export const AIRCRAFT_COMMAND_MAP = {
     },
     delete: {
         aliases: ['del', 'delete', 'kill'],
-        parse: noop,
         validate: zeroArgumentsValidator,
+        parse: noop,
         functionName: 'runDelete'
     },
     descendViaStar: {
@@ -77,8 +88,6 @@ export const AIRCRAFT_COMMAND_MAP = {
     },
     cancelHold: {
         aliases: ['exithold', 'cancelhold', 'continue', 'nohold', 'xh'],
-        parse: noop,
-        validate: zeroOrOneArgumentValidator,
         functionName: 'runCancelHoldingPattern'
     },
     expectArrivalRunway: {
@@ -124,19 +133,8 @@ export const AIRCRAFT_COMMAND_MAP = {
         validate: zeroOrOneArgumentValidator,
         functionName: 'runLand'
     },
-    '`': {
-        // todo: weired
-        // calling method is expecting an array with values that will get spread later, thus we purposly
-        // return an array here
-        parse: (args) => [convertStringToNumber(args)],
-        validate: singleArgumentValidator
-
-    },
-    // todo this is not an aircraft command, Move to scope command.
     moveDataBlock: {
         aliases: ['`'],
-        parse: noop,
-        validate: singleArgumentValidator,
         functionName: 'runMoveDataBlock'
     },
     reroute: {

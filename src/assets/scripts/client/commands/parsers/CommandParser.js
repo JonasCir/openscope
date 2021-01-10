@@ -3,7 +3,7 @@ import _forEach from 'lodash/forEach';
 import _isString from 'lodash/isString';
 import _map from 'lodash/map';
 import _tail from 'lodash/tail';
-import CommandModel from '../definitions/CommandModel';
+import AircraftCommandModel from '../definitions/aircraftCommand/AircraftCommandModel';
 import {
     AIRCRAFT_COMMAND_MAP,
     getCommandByAlias
@@ -47,7 +47,7 @@ const COMMAND_ARGS_SEPARATOR = ' ';
  * - user types command and presses enter
  * - command string is captured via input value, then passed as an argument to this class
  * - determine if command string is a `System Command` or `Transmit`
- * - creation of `CommandModel` objects for each command/argument group found
+ * - creation of `AircraftCommandModel` objects for each command/argument group found
  * - validate command arguments (number of arguments and data type)
  * - parse command arguments
  *
@@ -96,13 +96,13 @@ export default class CommandParser {
         this.callsign = '';
 
         /**
-         * List of `CommandModel` objects.
+         * List of `AircraftCommandModel` objects.
          *
-         * Each command is contained within a `CommandModel`, even System commands. This provides
+         * Each command is contained within a `AircraftCommandModel`, even System commands. This provides
          * a consistent interface for obtaining commands and arguments (via getter) and also
          * aloows for easy implementation of the legacy API structure.
          *
-         * @type {array<CommandModel>}
+         * @type {array<AircraftCommandModel>}
          */
         this.commandList = [];
 
@@ -144,7 +144,7 @@ export default class CommandParser {
     }
 
     /**
-     * Build a `CommandModel` for a System command then add that model to the `commandList`
+     * Build a `AircraftCommandModel` for a System command then add that model to the `commandList`
      *
      * @for CommandParser
      * @method _buildSystemCommandModel
@@ -155,7 +155,7 @@ export default class CommandParser {
         const argIndex = 1;
         const commandName = commandArgSegments[commandIndex];
         const commandArgs = commandArgSegments[argIndex];
-        const systemCommandModel = new CommandModel(commandName, SYSTEM_COMMAND_MAP[commandName]);
+        const systemCommandModel = new AircraftCommandModel(commandName, SYSTEM_COMMAND_MAP[commandName]);
 
         // undefined will happen with zeroArgument system commands, so we check for that here
         // and add only when args are defined
@@ -170,7 +170,7 @@ export default class CommandParser {
     }
 
     /**
-     * Build `CommandModel` objects for each transmit commands then add them to the `commandList`
+     * Build `AircraftCommandModel` objects for each transmit commands then add them to the `commandList`
      *
      * @private
      */
@@ -183,8 +183,8 @@ export default class CommandParser {
     }
 
     /**
-     * Loop through the commandArgSegments array and either create a new `CommandModel` or add
-     * arguments to a `CommandModel`.
+     * Loop through the commandArgSegments array and either create a new `AircraftCommandModel` or add
+     * arguments to a `AircraftCommandModel`.
      *
      * commandArgSegments will contain both commands and arguments (very contrived example):
      * - `[cmd, arg, arg, cmd, cmd, arg, arg, arg]`
@@ -193,12 +193,12 @@ export default class CommandParser {
      * the first item it receives, that is not a space, is a command. we then push each successive
      * array item to the args array until we find another command. then we repeat the process.
      *
-     * this allows us to create several `CommandModel` with arguments and only loop over them once.
+     * this allows us to create several `AircraftCommandModel` with arguments and only loop over them once.
      *
      * @for CommandParser
      * @method _buildCommandList
      * @param commandArgSegments {array<string>}
-     * @return {array<CommandModel>}
+     * @return {array<AircraftCommandModel>}
      * @private
      */
     _buildCommandList(commandArgSegments) {
@@ -219,7 +219,7 @@ export default class CommandParser {
                     continue;
                 }
 
-                aircraftCommandModel = new CommandModel(commandName, AIRCRAFT_COMMAND_MAP[commandName]);
+                aircraftCommandModel = new AircraftCommandModel(commandName, AIRCRAFT_COMMAND_MAP[commandName]);
             } else {
                 if (typeof commandName === 'undefined') {
                     aircraftCommandModel.args.push(commandOrArg);
@@ -229,7 +229,7 @@ export default class CommandParser {
 
                 commandList.push(aircraftCommandModel);
 
-                aircraftCommandModel = new CommandModel(commandName, AIRCRAFT_COMMAND_MAP[commandName]);
+                aircraftCommandModel = new AircraftCommandModel(commandName, AIRCRAFT_COMMAND_MAP[commandName]);
             }
         }
 
@@ -257,7 +257,7 @@ export default class CommandParser {
     }
 
     /**
-     * For each `CommandModel` in the `commandList`, first validate it's arguments
+     * For each `AircraftCommandModel` in the `commandList`, first validate it's arguments
      * then parse those arguments into a consumable array.
      *
      * @for CommandParser

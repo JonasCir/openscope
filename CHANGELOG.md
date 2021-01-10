@@ -728,7 +728,7 @@
 - [#367](https://github.com/openscope/openscope/issues/367) - adds [airport-file-standards](tools/documentation/deployment-checklist.md) document
 
 ### Bugfixes
-- [#364](https://github.com/openscope/openscope/issues/364) - Adds additional check for `undefined` in `CommandParser` when adding args to a `CommandModel`
+- [#364](https://github.com/openscope/openscope/issues/364) - Adds additional check for `undefined` in `CommandParser` when adding args to a `AircraftCommandModel`
 - [#370](https://github.com/openscope/openscope/issues/370) - Deprecates and removes `AircraftController._setDestinationFromRouteOrProcedure()` as it was implemented to maintain a previous api which is no longer used
 - [#188](https://github.com/openscope/openscope/issues/188) - Ensure the verbal and text instructions/readbacks state the correct directionality
 - [#396](https://github.com/openscope/openscope/issues/396) - Updates Pilot.applyDepartureProcedure() to use RunwayModel correctly

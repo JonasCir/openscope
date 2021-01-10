@@ -44,9 +44,9 @@ export default class ParsedCommand {
         this.command = command;
 
         /**
-         * List of `CommandModel` objects.
+         * List of `AircraftCommandModel` objects.
          *
-         * Each command is contained within a `CommandModel`, even System commands. This provides
+         * Each command is contained within a `AircraftCommandModel`, even System commands. This provides
          * a consistent interface for obtaining commands and arguments (via getter) and also
          * aloows for easy implementation of the legacy API structure.
          *

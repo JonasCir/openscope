@@ -4,7 +4,7 @@ import _map from 'lodash/map';
 import _tail from 'lodash/tail';
 
 import CommandParser from '../../../src/assets/scripts/client/commands/parsers/CommandParser';
-import CommandModel from '../../../src/assets/scripts/client/commands/definitions/CommandModel';
+import AircraftCommandModel from '../../../src/assets/scripts/client/commands/definitions/aircraftCommand/AircraftCommandModel';
 import { PARSED_COMMAND_NAME } from '../../../src/assets/scripts/client/constants/inputConstants';
 
 const TIMEWARP_50_MOCK = 'timewarp 50';
@@ -61,17 +61,17 @@ ava('sets #commandList with a SystemCommandModel object when provided a system c
     const model = new CommandParser(TIMEWARP_50_MOCK);
 
     t.true(model.commandList.length === 1);
-    t.true(model.commandList[0] instanceof CommandModel);
+    t.true(model.commandList[0] instanceof AircraftCommandModel);
 });
 
-ava('sets #commandList with CommandModel objects when it receives transmit commands', t => {
+ava('sets #commandList with AircraftCommandModel objects when it receives transmit commands', t => {
     const commandStringMock = buildCommandString(CAF_MOCK, CVS_MOCK, TAKEOFF_MOCK);
     const model = new CommandParser(commandStringMock);
 
     t.true(model.commandList.length === 3);
 
     _map(model.commandList, (command) => {
-        t.true(command instanceof CommandModel);
+        t.true(command instanceof AircraftCommandModel);
     });
 });
 
@@ -86,7 +86,7 @@ ava('._extractCommandsAndArgs() calls _buildCommandList() when provided transmit
     t.true(_buildCommandListSpy.calledWithExactly(_tail(expectedArgs)));
 });
 
-ava('._buildCommandList() returns an empty array when adding args to an undefined CommandModel', t => {
+ava('._buildCommandList() returns an empty array when adding args to an undefined AircraftCommandModel', t => {
     const model = new CommandParser('threeve');
 
     t.notThrows(() => model._buildCommandList(['$texas']));

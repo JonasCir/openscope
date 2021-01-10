@@ -3,18 +3,20 @@
  *
  * Conatins a command name, which maps 1:1 with a name defined in `commandMap.js` and `commandDefinitions.js`.
  * Commands may have an alias or many, we care only about the root command. The command map will map any
- * alias to a root command and this `AircraftCommandModel` is only concerned about those root commands. It has
+ * alias to a root command and this `SystemCommandModel` is only concerned about those root commands. It has
  * no way of knowing what the original alias was, if one was used.
  *
- * Each `AircraftCommandModel` will be expected to have, at a minimum, a `name` and a matching
+ * Each `SystemCommandModel` will be expected to have, at a minimum, a `name` and a matching
  * `AIRCRAFT_COMMAND_DEFINITION`.
  *
- * @class AircraftCommandModel
+ * @class SystemCommandModel
  */
-export default class AircraftCommandModel {
+import { SYSTEM_COMMAND_MAP } from './systemCommandMap';
+
+export default class SystemCommandModel {
     /**
      * @constructor
-     * @for AircraftCommandModel
+     * @for SystemCommandModel
      */
     constructor(name = '') {
         /**
@@ -38,7 +40,10 @@ export default class AircraftCommandModel {
          * @type {object}
          * @private
          */
-        this._commandDefinition = AIRCRAFT_COMMAND_DEFINITION[name];
+
+
+        this._commandDefinition = SYSTEM_COMMAND_MAP[name];
+
 
         /**
          * list of command arguments
@@ -76,7 +81,7 @@ export default class AircraftCommandModel {
     /**
      * Send the initial args off to the validator
      *
-     * @for AircraftCommandModel
+     * @for SystemCommandModel
      * @method validateArgs
      * @return {string|undefined}
      */
@@ -92,7 +97,7 @@ export default class AircraftCommandModel {
      * Send the initial args, set from the `CommandParser` right after instantiation, off to
      * the parser for formatting.
      *
-     * @for AircraftCommandModel
+     * @for SystemCommandModel
      * @method parseArgs
      */
     parseArgs() {

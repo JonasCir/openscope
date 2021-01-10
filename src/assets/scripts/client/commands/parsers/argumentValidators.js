@@ -2,7 +2,7 @@ import _isNaN from 'lodash/isNaN';
 import _isString from 'lodash/isString';
 import _forEach from 'lodash/forEach';
 import { convertStringToNumber } from '../../utilities/unitConverters';
-import { EXPEDITE } from '../definitions/aircraftCommandMap';
+import { EXPEDITE } from '../definitions/aircraftCommand/aircraftCommandMap';
 import { ERROR_MESSAGE } from './parserMessages';
 import {
     INVALID_INDEX,

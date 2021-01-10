@@ -3,13 +3,15 @@ import _forEach from 'lodash/forEach';
 import _isString from 'lodash/isString';
 import _map from 'lodash/map';
 import _tail from 'lodash/tail';
-import AircraftCommandModel from '../aircraftCommand/AircraftCommandModel';
+import AircraftCommandModel from '../definitions/aircraftCommand/AircraftCommandModel';
 import {
     AIRCRAFT_COMMAND_MAP,
     getCommandByAlias
-} from '../definitions/aircraftCommandMap';
+} from '../definitions/aircraftCommand/aircraftCommandMap';
 import { PARSED_COMMAND_NAME } from '../../constants/inputConstants';
 import ParsedCommand from '../ParsedCommand';
+import SystemCommandModel from '../definitions/systemCommand/SystemCommandModel';
+import { SYSTEM_COMMAND_MAP } from '../definitions/systemCommand/systemCommandMap';
 
 /**
  * Symbol used to split the command string as it enters the class.
@@ -154,16 +156,16 @@ export default class CommandParser {
         const argIndex = 1;
         const commandName = commandArgSegments[commandIndex];
         const commandArgs = commandArgSegments[argIndex];
-        const aircraftCommandModel = new AircraftCommandModel(commandName);
+        const systemCommandModel = new SystemCommandModel(commandName);
 
         // undefined will happen with zeroArgument system commands, so we check for that here
         // and add only when args are defined
         if (typeof commandArgs !== 'undefined') {
-            aircraftCommandModel.args.push(commandArgs);
+            systemCommandModel.args.push(commandArgs);
         }
 
         this.command = commandName;
-        this.commandList.push(aircraftCommandModel);
+        this.commandList.push(systemCommandModel);
 
         this._validateAndParseCommandArguments();
     }
@@ -294,12 +296,6 @@ export default class CommandParser {
      * @return {boolean}
      */
     _isSystemCommand(callsignOrSystemCommandName) {
-        const command = AIRCRAFT_COMMAND_MAP[callsignOrSystemCommandName];
-
-        if (typeof command === 'undefined') {
-            return false;
-        }
-
-        return command.isSystemCommand && callsignOrSystemCommandName !== PARSED_COMMAND_NAME.TRANSMIT;
+        return callsignOrSystemCommandName in SYSTEM_COMMAND_MAP;
     }
 }

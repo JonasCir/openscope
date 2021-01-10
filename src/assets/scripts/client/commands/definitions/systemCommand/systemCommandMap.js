@@ -6,21 +6,21 @@
  * @fileoverview
  */
 
-import { singleArgumentValidator, zeroArgumentsValidator, zeroOrOneArgumentValidator } from '../parsers/argumentValidators';
-import { convertStringToNumber } from '../../utilities/unitConverters';
-import { timewarpParser } from '../parsers/argumentParsers';
-import noop from './utils';
+import { singleArgumentValidator, zeroArgumentsValidator, zeroOrOneArgumentValidator } from '../../parsers/argumentValidators';
+import { convertStringToNumber } from '../../../utilities/unitConverters';
+import { timewarpParser } from '../../parsers/argumentParsers';
+import noop from '../utils';
 
 /**
  * Complete map of system commands
  *
  * Keys are lowercased here so they can be accessed programmatically.
  *
- * @propery AIRCRAFT_COMMAND_MAP
+ * @propery SYSTEM_COMMAND_MAP
  * @type {Object}
  * @final
  */
-export const AIRCRAFT_COMMAND_MAP = {
+export const SYSTEM_COMMAND_MAP = {
     airac: {
         validate: zeroArgumentsValidator,
         parse: noop

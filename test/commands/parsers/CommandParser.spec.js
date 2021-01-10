@@ -4,8 +4,9 @@ import _map from 'lodash/map';
 import _tail from 'lodash/tail';
 
 import CommandParser from '../../../src/assets/scripts/client/commands/parsers/CommandParser';
-import AircraftCommandModel from '../../../src/assets/scripts/client/commands/aircraftCommand/AircraftCommandModel';
+import AircraftCommandModel from '../../../src/assets/scripts/client/commands/definitions/aircraftCommand/AircraftCommandModel';
 import { PARSED_COMMAND_NAME } from '../../../src/assets/scripts/client/constants/inputConstants';
+import SystemCommandModel from '../../../src/assets/scripts/client/commands/definitions/systemCommand/SystemCommandModel';
 
 const TIMEWARP_50_MOCK = 'timewarp 50';
 const CALLSIGN_MOCK = 'AAL777';
@@ -47,7 +48,6 @@ ava('does not throw when called without parameters', t => {
 
 ava('sets #command with the correct name when provided a system command', t => {
     const model = new CommandParser(TIMEWARP_50_MOCK);
-
     t.true(model.command === 'timewarp');
 });
 
@@ -58,11 +58,11 @@ ava('sets #command with the correct name when provided a transmit command', t =>
     t.true(model.command === PARSED_COMMAND_NAME.TRANSMIT);
 });
 
-ava('sets #commandList with a AircraftCommandModel object when provided a system command', t => {
+ava('sets #commandList with a SystemCommandModel object when provided a system command', t => {
     const model = new CommandParser(TIMEWARP_50_MOCK);
 
     t.true(model.commandList.length === 1);
-    t.true(model.commandList[0] instanceof AircraftCommandModel);
+    t.true(model.commandList[0] instanceof SystemCommandModel);
 });
 
 ava('sets #commandList with AircraftCommandModel objects when it receives transmit commands', t => {

@@ -9,4 +9,4 @@
  * @param args {*}
  * @return {*}
  */
-const noop = (args) => args;
+export const noop = (args) => args;

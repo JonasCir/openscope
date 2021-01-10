@@ -1,10 +1,3 @@
-/**
- * This definition give us access to vaildate and parse functions. Some commands don't require either function and simply
- * pass the arguments through via `noop`. Other commands commands have very unique demands for how
- * arguments are formatted, these functions let us validate and parse on a case by case basis.
- *
- * @fileoverview
- */
 import _findKey from 'lodash/findKey';
 import {
     altitudeValidator,
@@ -88,6 +81,8 @@ export const AIRCRAFT_COMMAND_MAP = {
     },
     cancelHold: {
         aliases: ['exithold', 'cancelhold', 'continue', 'nohold', 'xh'],
+        parse: noop,
+        validate: zeroOrOneArgumentValidator,
         functionName: 'runCancelHoldingPattern'
     },
     expectArrivalRunway: {

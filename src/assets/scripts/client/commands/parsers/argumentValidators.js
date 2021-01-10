@@ -2,12 +2,13 @@ import _isNaN from 'lodash/isNaN';
 import _isString from 'lodash/isString';
 import _forEach from 'lodash/forEach';
 import { convertStringToNumber } from '../../utilities/unitConverters';
-import { EXPEDITE } from '../aircraftCommand/aircraftCommandMap';
+import { EXPEDITE } from '../definitions/aircraftCommandMap';
 import { ERROR_MESSAGE } from './parserMessages';
 import {
     INVALID_INDEX,
     REGEX
 } from '../../constants/globalConstants';
+
 
 /**
  * Check that `args` has exactly zero values
@@ -345,9 +346,11 @@ export const crossingValidator = (args = []) => {
     for (let i = 1; i < args.length; i++) {
         if (typeof args[i][0] === 'string') {
             if (args[i][0].toLowerCase() === 'a') {
-                altitude = args[i].toString().substr(1);
+                altitude = args[i].toString()
+                    .substr(1);
             } else if (args[i][0].toLowerCase() === 's') {
-                speed = args[i].toString().substr(1);
+                speed = args[i].toString()
+                    .substr(1);
             }
         }
     }

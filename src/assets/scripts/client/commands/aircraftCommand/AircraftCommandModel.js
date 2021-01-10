@@ -1,5 +1,3 @@
-import { AIRCRAFT_COMMAND_DEFINITION } from './aircraftCommandDefinitions';
-
 /**
  * A definition of a specific command and it's arguments.
  *

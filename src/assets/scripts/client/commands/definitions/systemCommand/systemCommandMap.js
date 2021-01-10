@@ -79,3 +79,17 @@ export const SYSTEM_COMMAND_MAP = {
 
     }
 };
+
+/**
+ * Encapsulation of boolean logic used to determine if the `callsignOrSystemCommandName`
+ * is in fact a system command.
+ *
+ *
+ * @for CommandParser
+ * @method _isSystemCommand
+ * @param cmd {string}
+ * @return {boolean}
+ */
+export const isSystemCommand = (cmd) => {
+    return cmd in SYSTEM_COMMAND_MAP;
+};

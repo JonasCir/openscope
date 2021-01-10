@@ -11,7 +11,7 @@ import {
 import { PARSED_COMMAND_NAME } from '../../constants/inputConstants';
 import ParsedCommand from '../ParsedCommand';
 import SystemCommandModel from '../definitions/systemCommand/SystemCommandModel';
-import { SYSTEM_COMMAND_MAP } from '../definitions/systemCommand/systemCommandMap';
+import { isSystemCommand, SYSTEM_COMMAND_MAP } from '../definitions/systemCommand/systemCommandMap';
 
 /**
  * Symbol used to split the command string as it enters the class.
@@ -135,7 +135,7 @@ export default class CommandParser {
         // effectively a slice of the array that returns everything but the first item
         const commandArgSegments = _tail(commandArgSegmentsWithCallsign);
 
-        if (this._isSystemCommand(callsignOrSystemCommandName)) {
+        if (isSystemCommand(callsignOrSystemCommandName)) {
             this._buildSystemCommandModel(commandArgSegmentsWithCallsign);
 
             return;
@@ -283,19 +283,5 @@ export default class CommandParser {
         });
 
         return _compact(validatedCommandList);
-    }
-
-    /**
-     * Encapsulation of boolean logic used to determine if the `callsignOrSystemCommandName`
-     * is in fact a system command.
-     *
-     *
-     * @for CommandParser
-     * @method _isSystemCommand
-     * @param callsignOrSystemCommandName {string}
-     * @return {boolean}
-     */
-    _isSystemCommand(callsignOrSystemCommandName) {
-        return callsignOrSystemCommandName in SYSTEM_COMMAND_MAP;
     }
 }

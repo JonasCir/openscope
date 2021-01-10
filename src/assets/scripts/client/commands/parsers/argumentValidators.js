@@ -3,7 +3,7 @@ import _isString from 'lodash/isString';
 import _forEach from 'lodash/forEach';
 import { convertStringToNumber } from '../../utilities/unitConverters';
 import { EXPEDITE } from '../definitions/aircraftCommand/aircraftCommandMap';
-import { ERROR_MESSAGE } from './parserMessages';
+import { ERROR_MESSAGE } from './parserErrors';
 import {
     INVALID_INDEX,
     REGEX

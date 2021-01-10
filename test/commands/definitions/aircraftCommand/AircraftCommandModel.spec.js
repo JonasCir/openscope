@@ -1,10 +1,9 @@
-/* eslint-disable arrow-parens, max-len, import/no-extraneous-dependencies */
 import ava from 'ava';
 
-import AircraftCommandModel from '../../../src/assets/scripts/client/commands/definitions/aircraftCommand/AircraftCommandModel';
+import AircraftCommandModel from '../../../../src/assets/scripts/client/commands/definitions/aircraftCommand/AircraftCommandModel';
 
 
-ava('does not thow when instantiated without parameters', t => {
+ava('does not throw when instantiated without parameters', t => {
     t.notThrows(() => new AircraftCommandModel());
 });
 

@@ -106,10 +106,3 @@ ava('._validateAndParseCommandArguments() calls ._validateCommandArguments()', t
 
     t.true(_validateCommandArgumentsSpy.called);
 });
-
-ava('._isSystemCommand() returns true if callsignOrTopLevelCommandName exists within SYSTEM_COMMANDS and is not transmit', t => {
-    const systemCommandMock = 'timewarp';
-    const model = new CommandParser(systemCommandMock);
-
-    t.true(model._isSystemCommand(systemCommandMock));
-});

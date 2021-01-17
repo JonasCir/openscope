@@ -28,7 +28,7 @@ import {
     holdParser,
     timewarpParser,
     optionalAltitudeParser,
-    crossingParser
+    crossingParser, ilsParser
 } from '../parsers/argumentParsers';
 
 /**
@@ -42,7 +42,17 @@ import {
  * @param args {*}
  * @return {*}
  */
-const noop = (args) => args;
+export const noop = (args) => args;
+
+
+/**
+ * Call `convertStringToNumber` and store the result in an array
+ *
+
+ * @function strToNumArray
+ * @param args {*}
+ */
+export const strToNumArray = (args) => [convertStringToNumber(args)];
 
 /**
  * System and Aircraft command definitions that accept zero arguments
@@ -139,7 +149,7 @@ const SINGLE_ARG_AIRCRAFT_COMMANDS = {
         validate: singleArgumentValidator,
         // calling method is expecting an array with values that will get spread later, thus we purposly
         // return an array here
-        parse: (args) => [convertStringToNumber(args)]
+        parse: strToNumArray
     },
     airport: {
         validate: singleArgumentValidator,
@@ -155,8 +165,7 @@ const SINGLE_ARG_AIRCRAFT_COMMANDS = {
     },
     ils: {
         validate: singleArgumentValidator,
-        // TODO: split this out to custom parser once the null value is defined
-        parse: (args) => [null, args[0]]
+        parse: ilsParser
     },
     land: {
         validate: zeroOrOneArgumentValidator,
@@ -170,7 +179,7 @@ const SINGLE_ARG_AIRCRAFT_COMMANDS = {
         validate: singleArgumentValidator,
         // calling method is expecting an array with values that will get spread later, thus we purposly
         // return an array here
-        parse: (args) => [convertStringToNumber(args)]
+        parse: strToNumArray
     },
     reroute: {
         validate: singleArgumentValidator,
@@ -188,7 +197,7 @@ const SINGLE_ARG_AIRCRAFT_COMMANDS = {
         validate: singleArgumentValidator,
         // calling method is expecting an array with values that will get spread later, thus we purposly
         // return an array here
-        parse: (arg) => [convertStringToNumber(arg)]
+        parse: strToNumArray
     },
     star: {
         validate: singleArgumentValidator,
